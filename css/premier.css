@@ -1,0 +1,287 @@
+/* ADJUST GAME SCREEN SIZE */
+main{
+    height: calc(100% - 40px);
+    justify-content: flex-start;
+}
+
+/* MENU */
+.top-menu{
+    display: flex;
+	flex-direction: row;
+    align-items: center;
+    width: 100%;
+    height: 30px;
+    margin: 0;
+    padding-top: 2px;
+    border-bottom: 1px solid #FFF;
+    justify-content: center;
+    z-index: 10;
+}
+.top-menu div{
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    align-items: center;
+    height: 100%;
+    line-height: 100%;
+    font-size: clamp(10px, 12px, 14px);
+    color: #FFF;
+    cursor: pointer;
+}
+.top-menu .fa{
+    margin-right: 5px;
+}
+.top-menu .go-home{
+    justify-content: left;
+    padding-left: 10px;
+}
+.top-menu .clock {
+    justify-content: center;
+    align-self: center;
+}
+.top-menu .id{
+    justify-content: right;
+    padding-right: 10px;
+    font-weight: 600;
+    cursor: default;
+}
+.top-menu div:hover{
+    background-color: darkred;
+}
+
+/* MAIN CONTAINER PREMIER */
+.main-container{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: calc(100% - 30px);
+    justify-content: flex-start;
+    align-items: center;
+    border: none;
+    margin: 0;
+    padding: 5px 0;
+    overflow: hidden;
+}
+.main-container .player_div{
+    display: flex;
+	flex-direction: column;
+    width: 95%;
+    height: calc(50% - 20px - 10px);
+    margin: 5px 0;
+    border-top: 1px solid #FFF;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center top;
+    background-image: transparent;
+    position: relative;
+}
+.main-container .player_div::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, rgba(0, 0, 0, 1) 20%, transparent);
+}
+.main-container .player_div > * {
+    position: relative;
+    z-index: 1;
+}
+
+/* RESET BUTTON */
+.game-buttons{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 40px;
+    margin: 5px 0;
+}
+.game-buttons .btn{
+    display: flex;
+    width: 60px;
+    height: 35px;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    border-radius: 15%;
+    border: none;
+    background-color: rgba(255, 255, 255, 0.6);
+    cursor: pointer;
+}
+
+/* PLAYER DATA */
+.player_div .count{
+    height: calc(100% - 80px);
+    margin: 0px;
+}
+
+.player_div .leader_data{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    height: 80px;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+    background-color: rgba(0, 0, 0,0.5); /* cor de fundo (ajuste conforme necessário) */
+}
+.player_div .leader_data .left{
+    display: flex; /* Alinha leader-img e aspects lado a lado */
+    flex-direction: row;
+    align-items: center;
+    width: 70%;
+    height: 80px;
+}
+.player_div .leader_data .leader-img{
+    display: flex;
+    top: 0;
+    left: 0;
+    position: relative;
+    box-sizing: border-box;
+    padding: 5px;
+	border-radius: 50%; /* Define o formato circular */
+	overflow: hidden; /* Garante que a imagem não ultrapasse o círculo */
+	border: 2px solid #FFF;
+	background-color: #FFF;
+    background-repeat: no-repeat;
+    background-size: 400%;
+	background-position: -40px -25px; /* left top */
+	width: 70px;
+	height: 70px;
+}
+.player_div .leader_data .leader-img:hover{
+    border-color: #F00;
+    cursor: pointer;
+}
+.player_div .leader_data .aspects{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: auto;
+    height: 100%;
+    min-width: 30px;
+    justify-content: center;
+}
+.player_div .leader_data .aspects .aspects-img{
+    position: relative;
+    display: flex;
+    flex: 1;
+    float:left;
+    width: 100%;
+    height: auto;
+    margin: 2px;
+    margin-right: 5px;
+    min-width: 10px;
+    min-height: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    z-index: 3;
+}
+
+/* PLAYER 1 */
+#player_1{
+    transform: rotate(180deg);
+}
+
+/* EPIC BUTTON */
+.epic_token{
+    display: flex;
+    box-sizing: border-box;
+	padding: 5px;
+    flex-direction: column; /* Stack elements vertically */
+    justify-content: center;
+    align-items: center;
+    width: 30%;
+    height: 100%;
+    background-color: transparent;
+}
+.epic_token button{
+    border: none;
+    padding: 2px;
+	margin: 0;
+    background-color: transparent;
+    align-items: center;
+    border-radius: 5px;
+    width: auto;
+    height: 90%;
+    cursor: pointer;
+    justify-content: center;
+    filter: grayscale(100%); /* Imagem em tons de cinza */
+}
+.epic_token button img {
+    width: auto;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.3s ease; /* Transição para a imagem também */
+}
+.epic_token button:hover {
+    filter: none;
+
+}
+.epic_token button:hover img {
+    opacity: 0.9; /* Levemente mais transparente no hover */
+}
+.leader-img.epicUsed::before {
+    content: '';
+    position: absolute;
+    box-sizing: border-box;
+    padding: 5px;
+    top: 0;
+    left: 0;
+    background-size: 400%;
+	background-position: -40px -25px; /* left top */
+	width: 100%;
+	height: 100%;
+    background-image: inherit;
+    filter: grayscale(100%);
+    z-index: 0;
+}
+
+/* SELECT BASE AND LEADER MENU */
+.player_div .select_base_leader{
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+    flex-grow: 1;
+}
+.player_div .select_base_leader > *:last-child {
+    margin-right: 0;
+}
+.player_div .select_base_leader select{
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	flex: 1;
+    margin-bottom: 5px;
+}
+.player_div .select_base_leader button {
+	display: flex;
+	margin: 2px;
+    margin-top: 5px;
+    padding: 5px;
+    width: 50%;
+	height: 20px;
+	flex: 1;
+	flex-wrap: wrap;
+    border: none;
+    border-radius: 15px;
+    background-color: #30475E;
+    color: #F5F7F8;
+    font-size: 2dvh;
+    font-weight: 300;
+    cursor: pointer;
+	justify-content: center;
+	align-items: center;
+    vertical-align: middle;
+	line-height: 20px;
+	transform: none;
+}
+.player_div .select_base_leader button:hover {
+    background-color: darkred; /* Muda a cor de fundo ao passar o mouse */
+}

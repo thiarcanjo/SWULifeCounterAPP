@@ -1,0 +1,314 @@
+/* ADJUST GAME SCREEN SIZE */
+main{
+    height: calc(100% - 40px);
+    justify-content: flex-start;
+	position: relative;
+}
+
+/* MENU */
+.top-menu{
+    display: flex;
+	flex-direction: row;
+    align-items: center;
+    width: 100%;
+    height: 30px;
+    margin: 0;
+    padding-top: 2px;
+    border-bottom: 1px solid #FFF;
+    justify-content: center;
+    z-index: 10;
+}
+.top-menu div{
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    align-items: center;
+    height: 100%;
+    line-height: 100%;
+    font-size: clamp(10px, 12px, 14px);
+    color: #FFF;
+    cursor: pointer;
+}
+.top-menu .fa{
+    margin-right: 5px;
+}
+.top-menu .go-home{
+    justify-content: left;
+    padding-left: 10px;
+}
+.top-menu .clock {
+    justify-content: center;
+    align-self: center;
+}
+.top-menu div:hover{
+    background-color: darkred;
+}
+
+/* MAIN CONTAINER PREMIER */
+.main-container{
+    display: flex;
+    flex-direction: column;
+    width: 620px;
+    height: 390px;
+    justify-content: flex-end;
+    align-items: center;
+    border: none;
+    margin: 0;
+    padding: 0;
+	transform: rotate(90deg);
+	margin-top: 120px;
+    overflow: hidden;
+}
+
+.main-container .row{
+    display: flex;
+	flex-direction: row;
+}
+.main-container .rot{
+	transform: rotate(180deg);
+}
+
+.player_div{
+    position: relative;
+    display: flex;
+	flex-direction: column;
+    align-items: flex-start;
+    transform: none;
+}
+.player_div .row{
+	display: flex;
+	flex-direction: row;
+    align-items: flex-start;
+    transform: none;
+}
+
+/* PLAYER NUMBER */
+.player_div .number{
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    margin: 2px;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 30px;
+    background-color: cadetblue;
+    border: 1px solid #FFF;
+    border-radius: 5px;
+    transform: none;
+}
+.player_div .number p{
+	font-size: clamp(18px, 3vw, 26px);
+    font-weight: 800;
+}
+
+/* LEADERS */
+.player_div .leader_data {
+	display: flex;
+    flex-direction: column;
+	justify-content: space-around;
+	align-items: center;
+}
+.player_div .leader_data .leader-img {
+    display: flex;
+	position: relative;
+	margin-top: 30px;
+	border-radius: 50%;
+	overflow: hidden;
+	border: 2px solid #FFF;
+	background-color: #FFF;
+    background-repeat: no-repeat;
+    background-size: 400%;
+	background-position: -20px -10px; /* left top */
+	width: 70%;
+	min-height: 20%;
+	height: 25%;
+	z-index: 10;
+}
+
+/* BASE */
+.player_div .base_data{
+	display: flex;
+	position: relative;
+    padding: 0;
+    border: none;
+	justify-content: center;
+	overflow: hidden;
+    transform: none;
+}
+.player_div .base_data .base-img {
+	overflow: hidden;
+	border: 2px solid #FFF;
+	border-bottom: none;
+    background-repeat: no-repeat;
+    background-size: cover;
+	background-position: left top; /* left top */
+	width: 100%;
+    height: 100%;
+}
+.epicToken-img{
+	height: 80%;
+	margin-right: 5px;
+}
+
+.leader_data .leader-img:hover, 
+.leader_data .leader-img:active,
+.base_data .base-img:hover,
+.base_data .base-img:active{
+    border-color: #F00;
+    cursor: pointer;
+}
+
+/* TOKEN PLAYER */
+.player_div .token{
+    display: flex;
+	padding: 0;
+    border: none;
+    align-items: center;
+    justify-content: center;
+	justify-items: center;
+	overflow: visible;
+    transform: none;
+}
+.player_div .token img{
+    display: flex;
+	justify-self: center;
+    width: 90%;
+    height: 90%;
+	margin-bottom: 20px;
+    object-fit: cover;
+	overflow: visible;
+    transform: none;
+}
+
+/* SELECT BASE AND LEADER */
+.player_div .select_base_leader{
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	justify-content: center;
+	justify-items: center;
+    transform: none;
+}
+.player_div .select_base_leader select{
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	flex: 1;
+    transform: none;
+}
+.player_div .select_base_leader button {
+	display: flex;
+	margin: 2px;
+    padding: 5px;
+    width: 80%;
+	height: 20px;
+	flex: 1;
+	flex-wrap: wrap;
+    border: none;
+    border-radius: 15px;
+    background-color: #30475E; 
+    color: #F5F7F8;
+    font-size: 2dvh;
+    font-weight: 200;
+    cursor: pointer;
+	justify-content: center;
+	align-self: center;
+	line-height: 20px;
+    transform: none;
+}
+.player_div.select_base_leader button:hover {
+    background-color: darkred;
+}
+
+/* TOKENS */
+	.ts_buttons{
+		display: flex;
+		position: absolute;
+		align-items: center;
+		align-self: center;
+		width: 270px;
+		height: 60px;
+		padding: 5px;
+		top: 50%;
+		left: 50%;
+		justify-content: space-around;
+		background-color: rgba(255,255,255,0.2);
+		border-radius: 10px;
+		border: none;
+		transform: translate(-50%, -50%) rotate(-90deg);
+		z-index: 15;
+	}
+	.ts_buttons .btn{
+		border: none;
+		padding: 5px;
+		margin: 5px;
+		background-color: transparent;
+		justify-content: center;
+		align-items: center;
+		border-radius: 5px;
+		width: 60px;
+		height: 60px;
+		cursor: pointer;
+		transform: rotate(90deg);
+	}
+	.ts_buttons .btn:hover{
+		background-color: brown;
+	}
+	.ts_buttons .clear span {
+		display: flex;
+		flex-direction: column;
+		box-sizing: border-box;
+		text-align: center;
+		align-items: center;
+		text-align: center;
+		justify-content: center;
+		width: 100%;
+	}
+	.ts_buttons .clear i {
+		display: flex;
+		justify-self: center;
+		align-self: center;
+	}
+	.ts_buttons .clear:hover{
+		background-color: transparent;
+		color: Tomato;
+	}
+	.ts_buttons .btn img{
+		width: 90%;
+		height: 90%;
+		object-fit: contain;
+	}
+
+/* POSITIONS */
+	/* PLAYER 1 */
+	#player_1 .leader_data, #player_1 .base_data{
+		background-color: var(--player-1);
+	}
+
+	/* PLAYER 2 */
+	#player_2 .leader_data, #player_2 .base_data{
+		background-color: var(--player-2);
+	}
+	#player_2 .number{
+		right:0;
+	}
+	#player_2 .row{
+		justify-content: flex-end;
+	}
+
+	/* PLAYER 3 */
+	#player_3 .leader_data, #player_3 .base_data{
+		background-color: var(--player-3);
+	}
+
+	/* PLAYER 4 */
+	#player_4 .leader_data, #player_4 .base_data{
+		background-color: var(--player-4);
+	}
+	#player_4 .number{
+		right:0;
+	}
+	#player_4 .row{
+		justify-content: flex-end;
+	}
