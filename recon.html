@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <meta http-equiv="Permissions-Policy" content="screen-wake-lock=()">
+    <link rel="icon" href="./imgs/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/vars.css">
+    <link rel="stylesheet" href="./css/default.css">
+    <link rel="stylesheet" href="./css/recon.css">
+    <link rel="stylesheet" href="./css/sizes.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/solid.css"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/fontawesome.css"/>
+    <title>SWU: Life Counter - Card Recon</title>
+</head>
+<body>
+    <main>
+        <div class="top-menu">
+            <div class="go-home" onclick="goHome();">
+                <span class="fa fa-home"></span><span>BEGIN</span>
+            </div>
+        </div>
+        <div class="main-container w10">
+            <h1>Scan SWU Card</h1>
+
+            <button id="takePictureButton">📷 SCAN</button>
+
+            <img id="imagePreview" src="#" alt="Preview" />
+            <div id="areaPreviewComGuia">
+                <img id="imagemCapturadaPreview" src="#" alt="Imagem Capturada Preview" />
+                <div id="guiaRetanguloVermelho">
+                </div>
+            </div>
+            <button id="btnProcessarCodigo">Processar Código</button>
+
+            <div id="divStatus" style="display: none;"></div>
+            <div id="divResultado" style="display: none;">
+                <h2>Card:</h2>
+                <ul id="infoCard"></ul>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>
+            SWU: Life Counter is an unofficial fan site and free content.
+            <br>
+            All about Star Wars: Unlimited is copyright of Fantasy Flight Publishing Inc and Lucasfilm Ltd.
+            <br>
+            SWU: Life Counter - Developed by Arcanjo (2025)
+        </p>
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/nosleep/0.12.0/NoSleep.min.js"></script>
+    <script src="./js/default.js"></script>
+    <script src="cordova.js"></script>
+    <script src='https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js'></script>
+    <script src="./js/recon.js"></script>
+    <script src="./js/bd.js"></script>
+</body>
