@@ -66,17 +66,21 @@ function showCardResult(card) {
 
     if (divResultado && infoCard) {
         infoCard.innerHTML = ''; // Limpa resultados anteriores
-        if (card && card.nome) {
-            const itens = {
-                'Nome': card.nome,
-                'ID': card.id,
-                'Aspectos': card.aspectos ? card.aspectos.join(', ') : 'N/A'
-                // Adicione mais campos conforme necessário
-            };
-            for (const chave in itens) {
-                const li = document.createElement('li');
-                li.textContent = `${chave}: ${itens[chave]}`;
-                infoCard.appendChild(li);
+        if (card) {
+            const itens = [];
+            if(Array.isArray(card)){
+                card.forEach(c => {
+                    itens.push({
+                        'name': c.name,
+                        'code': c.code
+                    });
+                });
+                
+                for (const chave in itens) {
+                    const li = document.createElement('li');
+                    li.textContent = `(${itens[chave]['code']}) ${itens[chave]['name']}`;
+                    infoCard.appendChild(li);
+                }
             }
             divResultado.style.display = 'block';
         } else {
@@ -181,14 +185,12 @@ function processOCR(textOCR) {
             // Processar a resposta do servidor
             hideStatus();
             console.log("Server response:", response);
-            if (response && response.success && response.cardIdentify) {
-                showStatus("CARD Identify!<br>".response.message);
-                showCardResult(response.cardIdentify);
-                console.log("CARD Identify:", response.cardIdentify);
-                
-                return response;
+            if (response && response.status=="success" && response.data) {
+                showStatus(response.message);
+                showCardResult(response.data);
+                console.log("CARD Identify:", response.data);
             } else {
-                const mensagemErro = response && response.message ? response.message : "Card not founded on DB: " .concat(response.message || "UKNOWN ERROR.");
+                const mensagemErro = response && response.message ? response.message : "Card not founded on DB: "+concat(response.message || "UKNOWN ERROR.");
                 showStatus("ERROR: Recon fail - " + mensagemErro);
                 console.warn("ERROR: Recon fail - ", mensagemErro, response);
                 hideCardResult();
@@ -204,8 +206,6 @@ function processOCR(textOCR) {
             // Esconder o indicador de loading
         }
     });
-
-    return null;
 }
 
 async function TesseractJSRecon(imageBase64) {
@@ -227,12 +227,9 @@ async function TesseractJSRecon(imageBase64) {
         console.log("Texto OCR extraído pelo Tesseract.js:", text);
         showStatus("Texto extraído! Enviando para o servidor...");
 
-        const CardInfo = processOCR(text); 
+        processOCR(text); 
 
         await worker.terminate(); // Libera o worker
-        showStatus("Processamento OCR no cliente concluído.");
-        showStatus(CardInfo.message || "Nenhuma informação de carta encontrada.");
-
     } catch (error) {
         console.error("Erro durante o reconhecimento com Tesseract.js:", error);
         showStatus("Erro no OCR no dispositivo: " + error);
@@ -244,9 +241,9 @@ async function TesseractJSRecon(imageBase64) {
 function ajustarGuiaRetangulo(imgElementPreview, guiaElement, imgOriginalWidth, imgOriginalHeight) {
     // Define a proporção e posição do retângulo guia em relação à imagem ORIGINAL
     // Exemplo: canto inferior direito, pegando 30% da largura e 15% da altura
-    const proporcaoX = 0.60; // Começa em 65% da largura
-    const proporcaoY = 0.85; // Começa em 80% da altura
-    const proporcaoLargura = 0.40; // 30% da largura total da imagem
+    const proporcaoX = 0.40; // Começa em 65% da largura
+    const proporcaoY = 0.20; // Começa em 80% da altura
+    const proporcaoLargura = 0.55; // 30% da largura total da imagem
     const proporcaoAltura = 0.10;  // 20% da altura total da imagem
 
     // Calcula a posição e tamanho em pixels do guia na IMAGEM DE PREVIEW
@@ -331,25 +328,21 @@ function cortarEProcessarImagem(imagemObjOriginal, coords) {
     ctx.putImageData(imageDataObj, 0, 0);
     console.log("Imagem convertida para escala de cinza.");
 
+    // (Opcional) Exibir o preview da imagem em escala de cinza
+    const previewEscalaCinza = document.getElementById('imagemPreviewEscalaCinza'); // Crie este elemento img
+    if(previewEscalaCinza) previewEscalaCinza.src = canvas.toDataURL('image/png');
+
     // 3. Binarização (Preto e Branco) - Esta etapa pode ser MUITO eficaz
     // Você precisará experimentar com o valor do 'limiar' (threshold)
-    const imageDataBinarizada = ctx.getImageData(0, 0, canvas.width, canvas.height);
-    const dataB = imageDataBinarizada.data;
-    const limiar = 128; // VALOR EXPERIMENTAL (0-255). Comum começar com 128.
-                      // Se o texto estiver muito claro, pode precisar de um limiar menor.
-                      // Se o texto estiver escuro e o fundo claro, pode precisar de um limiar maior.
-                      // Se o texto for claro em fundo escuro, talvez precise inverter as cores primeiro ou ajustar o limiar.
-
-    for (let i = 0; i < dataB.length; i += 4) {
-        // Usa o valor de cinza já calculado (todos R, G, B são iguais após escala de cinza)
-        const tomDeCinza = dataB[i]; 
-        const cor = tomDeCinza > limiar ? 255 : 0; // 255 = Branco, 0 = Preto
-        dataB[i]     = cor; 
-        dataB[i + 1] = cor; 
-        dataB[i + 2] = cor;
+    const imageDataInvertida = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    const dataI = imageDataInvertida.data;
+    for (let i = 0; i < dataI.length; i += 4) {
+        dataI[i]     = 255 - dataI[i];     // Inverte vermelho
+        dataI[i + 1] = 255 - dataI[i + 1]; // Inverte verde
+        dataI[i + 2] = 255 - dataI[i + 2]; // Inverte azul
     }
-    ctx.putImageData(imageDataBinarizada, 0, 0);
-    console.log("Imagem binarizada com limiar:", limiar);
+    ctx.putImageData(imageDataInvertida, 0, 0);
+    console.log("Cores da imagem binarizada invertidas.");
 
     const imagemProcessadaDataURL = canvas.toDataURL('image/png'); // PNG é geralmente melhor para OCR após binarização
     console.log("Imagem final pré-processada e pronta para Tesseract.js.");
