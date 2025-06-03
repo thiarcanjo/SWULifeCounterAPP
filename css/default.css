@@ -102,21 +102,3 @@ html {
     border-radius: 5px;
     cursor: pointer;
 }
-
-/* SWEET POPUP */
-.swal2-container{
-    position: absolute;
-    transform: rotate(90deg);
-    width: 600px;
-    height: 340px;
-    top: 210px;
-    left: -100px;
-    z-index: 9999;
-}
-.swal2-radio label{
-	justify-self: center;
-	padding: 5px;
-	background-color: #F00;
-	color: #FFF;
-	font-weight: 400;
-}

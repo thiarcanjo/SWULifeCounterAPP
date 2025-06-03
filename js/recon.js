@@ -70,15 +70,21 @@ function showCardResult(card) {
             const itens = [];
             if(Array.isArray(card)){
                 card.forEach(c => {
+                    let collection = c.Collection;
                     itens.push({
                         'name': c.name,
-                        'code': c.code
+                        'number': c.code.slice(-3),
+                        'code': c.code,
+                        'collection': collection.code
                     });
                 });
                 
                 for (const chave in itens) {
                     const li = document.createElement('li');
-                    li.textContent = `(${itens[chave]['code']}) ${itens[chave]['name']}`;
+                    const link = document.createElement('a');
+                    link.href = baseUrl + '/imgs/cards/' + itens[chave]['collection'] +'/'+itens[chave]['number']+'.png';
+                    link.textContent = `(${itens[chave]['code']}) ${itens[chave]['name']}`;
+                    li.appendChild(link);
                     infoCard.appendChild(li);
                 }
             }
@@ -244,7 +250,7 @@ function ajustarGuiaRetangulo(imgElementPreview, guiaElement, imgOriginalWidth, 
     const proporcaoX = 0.40; // Começa em 65% da largura
     const proporcaoY = 0.20; // Começa em 80% da altura
     const proporcaoLargura = 0.55; // 30% da largura total da imagem
-    const proporcaoAltura = 0.10;  // 20% da altura total da imagem
+    const proporcaoAltura = 0.07;  // 7% da altura total da imagem
 
     // Calcula a posição e tamanho em pixels do guia na IMAGEM DE PREVIEW
     const guiaLeft = imgElementPreview.offsetWidth * proporcaoX;
@@ -309,8 +315,9 @@ function cortarEProcessarImagem(imagemObjOriginal, coords) {
     );
     console.log(`Imagem cortada para ${canvas.width}x${canvas.height}px`);
     
-    const previewCortadaAntes = document.getElementById('imagemPreviewCortadaAntes'); // Crie este elemento img se quiser ver
-    if(previewCortadaAntes) previewCortadaAntes.src = canvas.toDataURL('image/jpeg');
+    // (Opcional) Exibir o preview da imagem cortada
+    //const previewCortadaAntes = document.getElementById('imagemPreviewCortadaAntes'); // Crie este elemento img se quiser ver
+    //if(previewCortadaAntes) previewCortadaAntes.src = canvas.toDataURL('image/jpeg');
 
     // 2. Converter para Escala de Cinza
     const imageDataObj = ctx.getImageData(0, 0, canvas.width, canvas.height);
@@ -329,8 +336,8 @@ function cortarEProcessarImagem(imagemObjOriginal, coords) {
     console.log("Imagem convertida para escala de cinza.");
 
     // (Opcional) Exibir o preview da imagem em escala de cinza
-    const previewEscalaCinza = document.getElementById('imagemPreviewEscalaCinza'); // Crie este elemento img
-    if(previewEscalaCinza) previewEscalaCinza.src = canvas.toDataURL('image/png');
+    //const previewEscalaCinza = document.getElementById('imagemPreviewEscalaCinza'); // Crie este elemento img
+    //if(previewEscalaCinza) previewEscalaCinza.src = canvas.toDataURL('image/png');
 
     // 3. Binarização (Preto e Branco) - Esta etapa pode ser MUITO eficaz
     // Você precisará experimentar com o valor do 'limiar' (threshold)
